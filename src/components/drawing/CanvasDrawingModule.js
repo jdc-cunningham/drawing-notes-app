@@ -18,7 +18,7 @@ const CanvasDrawingModule = (props) => {
 	let w = 0;
 	let h = 0;
 	
-	function init() {
+	const init = () => {
 		const container = document.querySelector('.App');
 
 		canvas = document.getElementById('can');
@@ -31,18 +31,32 @@ const CanvasDrawingModule = (props) => {
 		canvas.addEventListener("mousemove", function (e) {
 			findxy('move', e)
 		}, false);
+
 		canvas.addEventListener("mousedown", function (e) {
 			findxy('down', e)
 		}, false);
+
 		canvas.addEventListener("mouseup", function (e) {
 			findxy('up', e)
 		}, false);
+
 		canvas.addEventListener("mouseout", function (e) {
 			findxy('out', e)
 		}, false);
 	}
+
+	const loadDrawing = (imgBase64) => {
+		// https://stackoverflow.com/a/4409745
+		let image = new Image();
+
+		image.onload = function() {
+			ctx.drawImage(image, 0, 0);
+		};
+
+		image.src = imgBase64;
+	}
 	
-	function color(obj) {
+	const color = (obj) => {
 		switch (obj.id) {
 			case "green":
 				x = "green";
@@ -71,8 +85,8 @@ const CanvasDrawingModule = (props) => {
 	
 		else y = 2;
 	}
-	
-	function draw() {
+
+	const draw = () => {
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
 		ctx.lineTo(currX, currY);
@@ -81,23 +95,24 @@ const CanvasDrawingModule = (props) => {
 		ctx.stroke();
 		ctx.closePath();
 	}
-	
-	function erase() {
+
+	const erase = () => {
 		var m = window.confirm("Want to clear");
 		if (m) {
 			ctx.clearRect(0, 0, w, h);
 			document.getElementById("canvasimg").style.display = "none";
 		}
 	}
-	
-	function save() {
+
+	const save = () => {
 		document.getElementById("canvasimg").style.border = "2px solid";
 		var dataURL = canvas.toDataURL();
+		console.log(dataURL);
 		document.getElementById("canvasimg").src = dataURL;
 		document.getElementById("canvasimg").style.display = "inline";
 	}
-	
-	function findxy(res, e) {
+
+	const findxy = (res, e) => {
 		if (res === 'down') {
 			prevX = currX;
 			prevY = currY;
