@@ -49,14 +49,12 @@ const CanvasDrawingModule = (props) => {
 				// this is called when the "force click" / "deep press" end
 			},
 			change: function(force, event){
-				let now = Date.now();
 
 				if (pressures.length === 5) {
 					pressures.shift();
 				}
 
-				pressures.push(Math.floor(force * 10));
-
+				pressures.push(Math.floor(force * 5));
 
 				y = average(pressures);
 

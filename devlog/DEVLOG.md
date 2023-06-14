@@ -158,3 +158,17 @@ Okay I think I have a solution, to average the strokes vs. just jumping (makes t
 now my concern is memory leak... since the pressure thing fires off a lot
 
 it's fine... CPU goes up
+
+6:44 PM
+
+alright this is the one...
+
+6:48 PM
+
+good enough to draw
+
+<img src="./good-enough.png"/>
+
+I did not get as far as I would like today but the pressurejs was an extra feature and I also did the API part already
+
+So it's mostly coming up with a UI and wiring it up to the API
