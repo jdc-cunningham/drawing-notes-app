@@ -62,3 +62,27 @@ https://stackoverflow.com/questions/14042599/storing-base64-encoded-data-as-blob
 2:08 PM
 
 that works... nice
+
+3:02 PM
+
+wrote the API bit basic stuff, testing on postman real quick before integrating here
+
+I will get this thing to be functional today and integrated into cross-platform-app so I can start using it
+
+then next will be that on-screen keyboard
+
+3:28 PM
+
+distracted, still testing API
+
+3:43 PM
+
+still distracted, need to wrap up testing this API
+
+3:49 PM
+
+back on
+
+3:53 PM
+
+okay API is good, now will integrate into some kind of an interface

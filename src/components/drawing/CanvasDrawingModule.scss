@@ -1,0 +1,42 @@
+.canvas-drawing-module {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-drawing-module__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: #505050;
+  padding: 0.25rem;
+  width: 100%;
+}
+
+.canvas-drawing-module__header-toggle-menu-btn {
+  font-size: 1.25rem;
+}
+
+.canvas-drawing-module__header-menu {
+  display: none;
+
+  &.open {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
+#canvas {
+  // height: calc(100% - 36px);
+  // width: calc(100% - 0.5rem);
+  margin: 0.25rem;
+  border: 1px solid #505050;
+}
+

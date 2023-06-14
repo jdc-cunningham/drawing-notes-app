@@ -3,6 +3,13 @@ import { useState, useEffect } from 'react';
 import './CanvasDrawingModule.scss';
 
 const CanvasDrawingModule = (props) => {
+	const [menuOpen, setMenuOpen] = useState(false);
+	const [activeDrawing, setActiveDrawing] = useState({
+		name: 'New drawing',
+		id: 0,
+		topics: ''
+	});
+
 	// variant from basic demo here:
 	// https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
 	let canvas = false;
@@ -17,13 +24,14 @@ const CanvasDrawingModule = (props) => {
 	let y = 2;
 	let w = 0;
 	let h = 0;
-	
+
 	const init = () => {
 		const container = document.querySelector('.App');
+		const header = document.querySelector('.canvas-drawing-module__header');
 
-		canvas = document.getElementById('can');
-		canvas.width = container.clientWidth - 10; // 10 is padding left
-		canvas.height = container.clientHeight;
+		canvas = document.getElementById('canvas');
+		canvas.width = container.clientWidth - 10; // scrollbar
+		canvas.height = container.clientHeight - header.offsetHeight - 8;
 		ctx = canvas.getContext("2d");
 		w = canvas.width;
 		h = canvas.height;
@@ -55,7 +63,7 @@ const CanvasDrawingModule = (props) => {
 
 		image.src = imgBase64;
 	}
-	
+
 	const color = (obj) => {
 		switch (obj.id) {
 			case "green":
@@ -105,7 +113,7 @@ const CanvasDrawingModule = (props) => {
 	}
 
 	const save = () => {
-		document.getElementById("canvasimg").style.border = "2px solid";
+		document.getElementById("canvasimg").style.border = "1px solid";
 		var dataURL = canvas.toDataURL();
 		console.log(dataURL);
 		document.getElementById("canvasimg").src = dataURL;
@@ -146,25 +154,38 @@ const CanvasDrawingModule = (props) => {
 		}
 	}
 
+	const toggleMenu = () => {
+		setMenuOpen(!menuOpen);
+	}
+
 	useEffect(() => {
 		init();
 	}, [])
 
-	return <div className="cpa__module" id="module--canvas-drawing">
-		<canvas id="can" width="400" height="400" style={{border: '2px solid'}}></canvas>
-		{/* <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
-		<div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onClick="color(this)"></div>
-		<div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onClick="color(this)"></div>
-		<div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onClick="color(this)"></div>
-		<div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onClick="color(this)"></div>
-		<div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onClick="color(this)"></div>
-		<div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onClick="color(this)"></div> */}
-		{/* <div style="position:absolute;top:20%;left:43%;">Eraser</div> */}
-		{/* <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onClick="color(this)"></div> */}
-		<img id="canvasimg" style={{position: 'absolute', top: '10%', left: '52%', display: 'none'}}/>
-		<input type="button" value="save" id="btn" size="30" onClick={() => save()} style={{position: 'absolute', top: '55%', left: '10%'}}/>
-		<input type="button" value="clear" id="clr" size="23" onClick={() => erase()} style={{position: 'absolute', top: '55%', left: '15%'}}></input>
-	</div>
+	return (
+		<div className="canvas-drawing-module" id="module--canvas-drawing">
+			<div className="canvas-drawing-module__header">
+				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>New</button>
+				<h2>{activeDrawing.name}</h2>
+				<div className={`canvas-drawing-module__header-menu ${menuOpen ? 'open' : ''}`}>
+
+				</div>
+			</div>
+			<canvas id="canvas"/>
+			{/* <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
+			<div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onClick="color(this)"></div>
+			<div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onClick="color(this)"></div>
+			<div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onClick="color(this)"></div>
+			<div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onClick="color(this)"></div>
+			<div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onClick="color(this)"></div>
+			<div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onClick="color(this)"></div> */}
+			{/* <div style="position:absolute;top:20%;left:43%;">Eraser</div> */}
+			{/* <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onClick="color(this)"></div> */}
+			<img id="canvasimg" style={{position: 'absolute', top: '10%', left: '52%', display: 'none'}}/>
+			<input type="button" value="save" id="btn" size="30" onClick={() => save()} style={{position: 'absolute', top: '55%', left: '10%'}}/>
+			<input type="button" value="clear" id="clr" size="23" onClick={() => erase()} style={{position: 'absolute', top: '55%', left: '15%'}}></input>
+		</div>
+	)
 }
 
 export default CanvasDrawingModule;
