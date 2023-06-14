@@ -121,3 +121,40 @@ it's interesting it causes these orthogonal artifacts
 
 <img src="./artifacts.png"/>
 
+5:12 PM
+
+it's weird I have a caching thing going on
+
+seems like I need to add a debouncer
+
+5:18 PM
+
+wtf... the code works then it doesn't work between saves
+
+5:36 PM
+
+I don't understand, the pressure thing works sometimes but not all the time
+
+not sure if it's updating too fast or what
+
+5:44 PM
+
+okay... maybe I have it, possible it's how I was initializing it/wrong order issue
+
+5:55 PM
+
+I wonder what causes the gaps
+
+It could be the speed that the pressure changes... 50ms seems good
+
+6:13 PM
+
+so far deployed is problematic
+
+6:31 PM
+
+Okay I think I have a solution, to average the strokes vs. just jumping (makes the gaps)
+
+now my concern is memory leak... since the pressure thing fires off a lot
+
+it's fine... CPU goes up
