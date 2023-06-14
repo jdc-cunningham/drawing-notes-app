@@ -1,8 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './CanvasDrawingModule.scss';
+import Pressure from 'pressure';
 
 const CanvasDrawingModule = (props) => {
+	Pressure.set('#canvas', {
+		change: function(force){
+			this.innerHTML = force;
+		}
+	});
+
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [activeDrawing, setActiveDrawing] = useState({
 		name: 'New drawing',
@@ -24,6 +31,42 @@ const CanvasDrawingModule = (props) => {
 	let y = 2;
 	let w = 0;
 	let h = 0;
+
+	Pressure.set('#canvas', {
+		start: function(event){
+			// this is called on force start
+			console.log('start');
+			console.log(event);
+		},
+		end: function(){
+			// this is called on force end
+			console.log('end');
+		},
+		startDeepPress: function(event){
+			// this is called on "force click" / "deep press", aka once the force is greater than 0.5
+			console.log('start deep');
+			console.log(event);
+		},
+		endDeepPress: function(){
+			// this is called when the "force click" / "deep press" end
+			console.log('end deep press');
+		},
+		change: function(force, event){
+			// this is called every time there is a change in pressure
+			// force will always be a value from 0 to 1 on mobile and desktop
+			console.log('change');
+			console.log(force);
+			console.log(event);
+			y = Math.floor(force * 10);
+			console.log('set', y);
+			// y = Math.floor(force * 10);
+		},
+		unsupported: function(){
+			// NOTE: this is only called if the polyfill option is disabled!
+			// this is called once there is a touch on the element and the device or browser does not support Force or 3D touch
+			console.log('unsupported');
+		}
+	});
 
 	const init = () => {
 		const container = document.querySelector('.App');

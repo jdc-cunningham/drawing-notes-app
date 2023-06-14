@@ -86,3 +86,38 @@ back on
 3:53 PM
 
 okay API is good, now will integrate into some kind of an interface
+
+4:26 PM
+
+I'm screwing around with layout sizes
+
+4:33 PM
+
+whoa maybe it is possible to trigger the existing virtual keyboard with JS, let me check
+
+the only reason I'm looking into this is the jank support with arch (have to do it yourself)
+
+4:40 PM
+
+nah it's not working, tried it
+
+4:45 PM
+
+it is possible to get pressure... using pressure.js
+
+I want the pressure so it changes the stroke size
+
+4:56 PM
+
+this is cool detecting the pressure
+
+4:58 PM
+
+the pressure value is super precise... like 15+ digits after decimal but it's between 0 and 1 so I guess I will multiply
+
+since canvas stroke width is 0 to infinity
+
+it's interesting it causes these orthogonal artifacts
+
+<img src="./artifacts.png"/>
+
