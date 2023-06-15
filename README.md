@@ -18,3 +18,7 @@ Uses [pressure.js](https://github.com/stuyam/pressure) to detect how hard you pu
 ### Great artiste
 
 <img src="./cat.JPG"/>
+
+### Issues
+
+This code is problematic, specifically the variable/state handling. When you change colors the first pixel laid down is the default eg. black.

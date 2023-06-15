@@ -107,6 +107,18 @@ having trouble loading the image...
 
 I think I fixed it but need to try a larger one
 
+5:49 PM
+
+Oh yeah I forgot when erasing (using white) need to use larger stroke size
+
+5:58 PM
+
+ugh... the variables are still f'd regarding changing colors
+
+the first contact color is black vs. active color
+
+Ahh well I gotta move on
+
 ---
 
 06/14/2023
