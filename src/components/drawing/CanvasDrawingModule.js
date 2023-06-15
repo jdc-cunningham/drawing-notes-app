@@ -13,11 +13,12 @@ const CanvasDrawingModule = (props) => {
 	});
 	const [color, setColor] = useState('black');
 	const [colorsVisible, setColorsVisible] = useState(false);
+	const [drawStarted, setDrawStarted] = useState(false); // specifically for colors
 
 	// variant from basic demo here:
 	// https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
 	let canvas = false;
-	let ctx = false;
+	var ctx = false;
 	let flag = false;
 	let prevX = 0;
 	let currX = 0;
@@ -25,8 +26,6 @@ const CanvasDrawingModule = (props) => {
 	let currY = 0;
 	let dot_flag = false;
 	var y = 2;
-	let w = 0;
-	let h = 0;
 
 	const colors = [
 		'black',
@@ -34,7 +33,7 @@ const CanvasDrawingModule = (props) => {
 		'red',
 		'blue',
 		'green',
-		'grey'
+		'gray'
 	];
 
 	const toggleColors = () => {
@@ -51,6 +50,9 @@ const CanvasDrawingModule = (props) => {
 		Pressure.set('#canvas', {
 			start: function(event){
 				// this is called on force start
+				if (!drawStarted) {
+					setDrawStarted(true);
+				}
 			},
 			end: function(){
 				// this is called on force end
@@ -80,6 +82,10 @@ const CanvasDrawingModule = (props) => {
 		});
 	}
 
+	const getCtx = () => {
+		return document.getElementById('canvas').getContext("2d");
+	}
+
 	const init = () => {
 		const container = document.querySelector('.App');
 		const header = document.querySelector('.canvas-drawing-module__header');
@@ -88,8 +94,6 @@ const CanvasDrawingModule = (props) => {
 		canvas.width = container.clientWidth - 10; // scrollbar
 		canvas.height = container.clientHeight - header.offsetHeight - 10;
 		ctx = canvas.getContext("2d");
-		w = canvas.width;
-		h = canvas.height;
 
 		canvas.addEventListener("mousemove", function (e) {
 			findxy('move', e)
@@ -121,41 +125,10 @@ const CanvasDrawingModule = (props) => {
 		image.src = imgBase64;
 	}
 
-	// const color = (obj) => {
-	// 	switch (obj.id) {
-	// 		case "green":
-	// 			x = "green";
-	// 			break;
-	// 		case "blue":
-	// 			x = "blue";
-	// 			break;
-	// 		case "red":
-	// 			x = "red";
-	// 			break;
-	// 		case "yellow":
-	// 			x = "yellow";
-	// 			break;
-	// 		case "orange":
-	// 			x = "orange";
-	// 			break;
-	// 		case "black":
-	// 			x = "black";
-	// 			break;
-	// 		case "white":
-	// 			x = "white";
-	// 			break;
-	// 	}
-
-	// 	if (x === "white") y = 14;
-	
-	// 	else y = 2;
-	// }
-
 	const draw = () => {
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
 		ctx.lineTo(currX, currY);
-		ctx.strokeStyle = color;
 		ctx.lineWidth = y;
 		ctx.stroke();
 		ctx.closePath();
@@ -164,7 +137,9 @@ const CanvasDrawingModule = (props) => {
 	const erase = () => {
 		var m = window.confirm("Want to clear");
 		if (m) {
-			ctx.clearRect(0, 0, w, h);
+			// still referring to init 0 values
+			let canvas = document.getElementById('canvas');
+			getCtx().clearRect(0, 0, canvas.width, canvas.height);
 		}
 	}
 
@@ -185,7 +160,6 @@ const CanvasDrawingModule = (props) => {
 
 			if (dot_flag) {
 				ctx.beginPath();
-				ctx.fillStyle = color;
 				ctx.fillRect(currX, currY, 2, 2);
 				ctx.closePath();
 				dot_flag = false;
@@ -212,13 +186,20 @@ const CanvasDrawingModule = (props) => {
 	}
 
 	useEffect(() => {
+		if (drawStarted) {
+			getCtx().strokeStyle = color;
+			toggleColors();
+		}
+	}, [color])
+
+	useEffect(() => {
 		init();
 	}, [])
 
 	return (
 		<div className="canvas-drawing-module" id="module--canvas-drawing">
 			<div className="canvas-drawing-module__header">
-				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>New</button>
+				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>Save</button>
 				<h2>{activeDrawing.name}</h2>
 				<div className={`canvas-drawing-module__header-menu ${menuOpen ? 'open' : ''}`}></div>
 			</div>
@@ -228,7 +209,9 @@ const CanvasDrawingModule = (props) => {
 			</button>
 			<div className={`canvas-drawing-module__active-color ${color} ${colorsVisible ? '' : 'open'}`} onClick={() => toggleColors()} title="click to pick color"></div>
 			<div className={`canvas-drawing-module__colors ${colorsVisible ? 'open' : ''}`}>
-				{colors.map((color, index) => <div key={index} className={`canvas-drawing-module__color ${color}`} onClick={() => setColor(color)} alt={`use ${color}`}></div>)}
+				<div className="canvas-drawing-module__colors-container">
+					{colors.map((color, index) => <div key={index} className={`canvas-drawing-module__color ${color}`} onClick={() => setColor(color)} alt={`${color}`} title={`use ${color}`}></div>)}
+				</div>
 			</div>
 		</div>
 	)

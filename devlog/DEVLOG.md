@@ -7,6 +7,38 @@ Base
 Advanced
 - [ ] move canvas
 
+06/15/2023
+
+2:09 PM
+
+alright back on
+
+going to rework that body wrapper, need it for abs positioned items
+
+2:20 PM
+
+the canvas height is weird and it's offset again so I'm not gonna mess with this right now
+
+need to move forward, these are personal tools so don't have to be polished long as they work
+
+I'll add the color picker now
+
+2:43 PM
+
+ugh... now I have a problem where variables aren't keeping current I think it's a reference issue
+
+can't use react state with the canvas
+
+tried setting but the reference to the value is the initial eg. false/empty
+
+2:52 PM
+
+hmm... having a lot of weird broken variables where some are working, some are at initial value
+
+3:02 PM
+
+oof man that's nasty but got it to work
+
 06/14/2023
 
 1:17 PM

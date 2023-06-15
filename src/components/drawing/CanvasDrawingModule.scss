@@ -57,14 +57,88 @@
   width: 1.5rem;
   height: 1.5rem;
   background-color: black;
+  border: solid 1px #282828;
   cursor: pointer;
 
   &.open {
     display: block;
   }
 
+  &.black {
+    background-color: black;
+  }
+
   &.white {
     background-color: white;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.gray {
+    background-color: gray;
+  }
+}
+
+.canvas-drawing-module__colors {
+  display: none;
+  position: absolute;
+  top: calc(58px - 0.25rem);
+  left: calc(3rem - 0.25rem);
+  width: auto;
+  height: auto;
+
+  &.open {
+    display: flex;
+  }
+}
+
+.canvas-drawing-module__colors-container {
+  display: flex;
+  align-items: flex-start;
+  justify-self: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.canvas-drawing-module__color {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.25rem;
+  border: 1px solid #282828;
+  cursor: pointer;
+
+  &.black {
+    background-color: black;
+  }
+
+  &.white {
+    background-color: white;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.gray {
+    background-color: gray;
   }
 }
 
