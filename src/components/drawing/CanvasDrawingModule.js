@@ -209,6 +209,7 @@ const CanvasDrawingModule = (props) => {
 					activeDrawing={activeDrawing}
 					setActiveDrawing={setActiveDrawing}
 					setSavingState={setSavingState}
+					erase={erase}
 				/>
 			</div>
 			<canvas id="canvas"/>

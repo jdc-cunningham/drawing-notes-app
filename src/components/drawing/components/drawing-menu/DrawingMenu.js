@@ -60,6 +60,8 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
     if (res.status === 200) {
       if (res.data.length) {
         // https://stackoverflow.com/a/4409745
+        erase();
+
         let image = new Image();
     
         image.onload = function() {
@@ -76,7 +78,7 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
 }
 
 const DrawingMenu = (props) => {
-  const { menuOpen, setMenuOpen, drawing, setActiveDrawing, canvas, setSavingState } = props;
+  const { menuOpen, setMenuOpen, drawing, setActiveDrawing, canvas, setSavingState, erase } = props;
 
   const baseApi = 'http://192.168.1.144:5003';
   const apiSavePath = `${baseApi}/save-drawing`;
@@ -118,7 +120,7 @@ const DrawingMenu = (props) => {
           <div
             key={index}
             className="DrawingMenu__search-result"
-            onClick={() => loadDrawing(apiGetDrawingPath, searchResult.id, canvas, setMenuOpen, setSearchTerm, setTags)}
+            onClick={() => loadDrawing(apiGetDrawingPath, searchResult.id, canvas, setMenuOpen, setSearchTerm, setTags, erase)}
           >{searchResult.name}</div>
         )}
       </div>
