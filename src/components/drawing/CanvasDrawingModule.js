@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './CanvasDrawingModule.scss';
 import Pressure from 'pressure';
+import RedX from '../../assets/icons/uxwing_close-icon.svg';
 
 const CanvasDrawingModule = (props) => {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -10,6 +11,8 @@ const CanvasDrawingModule = (props) => {
 		id: 0,
 		topics: ''
 	});
+	const [color, setColor] = useState('black');
+	const [colorsVisible, setColorsVisible] = useState(false);
 
 	// variant from basic demo here:
 	// https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
@@ -21,10 +24,22 @@ const CanvasDrawingModule = (props) => {
 	let prevY = 0;
 	let currY = 0;
 	let dot_flag = false;
-	let x = "black";
 	var y = 2;
 	let w = 0;
 	let h = 0;
+
+	const colors = [
+		'black',
+		'white',
+		'red',
+		'blue',
+		'green',
+		'grey'
+	];
+
+	const toggleColors = () => {
+		setColorsVisible(!colorsVisible);
+	}
 
 	const initPressure = () => {
 		const pressures = [];
@@ -32,8 +47,6 @@ const CanvasDrawingModule = (props) => {
 		// reducer
 		// https://stackoverflow.com/a/41452260
 		const average = array => array.reduce((a, b) => a + b) / array.length;
-
-		console.log('init');
 
 		Pressure.set('#canvas', {
 			start: function(event){
@@ -49,6 +62,8 @@ const CanvasDrawingModule = (props) => {
 				// this is called when the "force click" / "deep press" end
 			},
 			change: function(force, event){
+				// this is called every time there is a change in pressure
+				// force will always be a value from 0 to 1 on mobile and desktop
 
 				if (pressures.length === 5) {
 					pressures.shift();
@@ -57,12 +72,6 @@ const CanvasDrawingModule = (props) => {
 				pressures.push(Math.floor(force * 5));
 
 				y = average(pressures);
-
-				// this is called every time there is a change in pressure
-				// force will always be a value from 0 to 1 on mobile and desktop
-
-				// y = Math.floor(force * 10);
-				// y = Math.floor(force * 10);
 			},
 			unsupported: function(){
 				// NOTE: this is only called if the polyfill option is disabled!
@@ -77,7 +86,7 @@ const CanvasDrawingModule = (props) => {
 
 		canvas = document.getElementById('canvas');
 		canvas.width = container.clientWidth - 10; // scrollbar
-		canvas.height = container.clientHeight - header.offsetHeight - 8;
+		canvas.height = container.clientHeight - header.offsetHeight - 10;
 		ctx = canvas.getContext("2d");
 		w = canvas.width;
 		h = canvas.height;
@@ -112,41 +121,41 @@ const CanvasDrawingModule = (props) => {
 		image.src = imgBase64;
 	}
 
-	const color = (obj) => {
-		switch (obj.id) {
-			case "green":
-				x = "green";
-				break;
-			case "blue":
-				x = "blue";
-				break;
-			case "red":
-				x = "red";
-				break;
-			case "yellow":
-				x = "yellow";
-				break;
-			case "orange":
-				x = "orange";
-				break;
-			case "black":
-				x = "black";
-				break;
-			case "white":
-				x = "white";
-				break;
-		}
+	// const color = (obj) => {
+	// 	switch (obj.id) {
+	// 		case "green":
+	// 			x = "green";
+	// 			break;
+	// 		case "blue":
+	// 			x = "blue";
+	// 			break;
+	// 		case "red":
+	// 			x = "red";
+	// 			break;
+	// 		case "yellow":
+	// 			x = "yellow";
+	// 			break;
+	// 		case "orange":
+	// 			x = "orange";
+	// 			break;
+	// 		case "black":
+	// 			x = "black";
+	// 			break;
+	// 		case "white":
+	// 			x = "white";
+	// 			break;
+	// 	}
 
-		if (x === "white") y = 14;
+	// 	if (x === "white") y = 14;
 	
-		else y = 2;
-	}
+	// 	else y = 2;
+	// }
 
 	const draw = () => {
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
 		ctx.lineTo(currX, currY);
-		ctx.strokeStyle = x;
+		ctx.strokeStyle = color;
 		ctx.lineWidth = y;
 		ctx.stroke();
 		ctx.closePath();
@@ -156,16 +165,12 @@ const CanvasDrawingModule = (props) => {
 		var m = window.confirm("Want to clear");
 		if (m) {
 			ctx.clearRect(0, 0, w, h);
-			document.getElementById("canvasimg").style.display = "none";
 		}
 	}
 
 	const save = () => {
-		document.getElementById("canvasimg").style.border = "1px solid";
 		var dataURL = canvas.toDataURL();
 		console.log(dataURL);
-		document.getElementById("canvasimg").src = dataURL;
-		document.getElementById("canvasimg").style.display = "inline";
 	}
 
 	const findxy = (res, e) => {
@@ -180,7 +185,7 @@ const CanvasDrawingModule = (props) => {
 
 			if (dot_flag) {
 				ctx.beginPath();
-				ctx.fillStyle = x;
+				ctx.fillStyle = color;
 				ctx.fillRect(currX, currY, 2, 2);
 				ctx.closePath();
 				dot_flag = false;
@@ -220,18 +225,13 @@ const CanvasDrawingModule = (props) => {
 				</div>
 			</div>
 			<canvas id="canvas"/>
-			{/* <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
-			<div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onClick="color(this)"></div>
-			<div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onClick="color(this)"></div>
-			<div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onClick="color(this)"></div>
-			<div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onClick="color(this)"></div>
-			<div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onClick="color(this)"></div>
-			<div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onClick="color(this)"></div> */}
-			{/* <div style="position:absolute;top:20%;left:43%;">Eraser</div> */}
-			{/* <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onClick="color(this)"></div> */}
-			<img id="canvasimg" style={{position: 'absolute', top: '10%', left: '52%', display: 'none'}}/>
-			<input type="button" value="save" id="btn" size="30" onClick={() => save()} style={{position: 'absolute', top: '55%', left: '10%'}}/>
-			<input type="button" value="clear" id="clr" size="23" onClick={() => erase()} style={{position: 'absolute', top: '55%', left: '15%'}}></input>
+			<button className="canvas-drawing-module__clear-btn" type="button" title="clear drawing" onClick={() => erase()}>
+				<img className="canvas-drawing-module__clear-btn-img" src={RedX} alt="clear drawing"/>
+			</button>
+			<div className={`canvas-drawing-module__active-color ${color} ${colorsVisible ? '' : 'open'}`} onClick={() => toggleColors()} title="click to pick color"></div>
+			<div className={`canvas-drawing-module__colors ${colorsVisible ? 'open' : ''}`}>
+				{colors.map((color, index) => <div key={index} className={`canvas-drawing-module__color ${color}`} onClick={() => setColor(color)} alt={`use ${color}`}></div>)}
+			</div>
 		</div>
 	)
 }

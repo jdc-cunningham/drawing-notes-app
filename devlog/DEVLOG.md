@@ -172,3 +172,23 @@ good enough to draw
 I did not get as far as I would like today but the pressurejs was an extra feature and I also did the API part already
 
 So it's mostly coming up with a UI and wiring it up to the API
+
+9:32 PM
+
+not satisfied with progress, he proceeds forward
+
+I want color so I can erase
+
+10:22 PM
+
+I was working on a basic color picker but somehow I messed up the mouse position so it's offset vertically by 10 pixels ahhhhh
+
+10:35 PM
+
+dang it... have to go backwards
+
+10:39 PM
+
+man... I almost lost all that progress dumb
+
+it was the addition of a body wrapper
