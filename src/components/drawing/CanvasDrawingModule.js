@@ -10,11 +10,12 @@ const CanvasDrawingModule = (props) => {
 	const [activeDrawing, setActiveDrawing] = useState({
 		name: 'Drawing title',
 		id: 0,
-		topics: ''
+		topics: '',
 	});
 	const [color, setColor] = useState('black');
 	const [colorsVisible, setColorsVisible] = useState(false);
 	const [drawStarted, setDrawStarted] = useState(false); // specifically for colors
+	const [savingState, setSavingState] = useState(''); // saving, saved
 
 	// variant from basic demo here:
 	// https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
@@ -124,17 +125,6 @@ const CanvasDrawingModule = (props) => {
 		initPressure();
 	}
 
-	const loadDrawing = (imgBase64) => {
-		// https://stackoverflow.com/a/4409745
-		let image = new Image();
-
-		image.onload = function() {
-			ctx.drawImage(image, 0, 0);
-		};
-
-		image.src = imgBase64;
-	}
-
 	const draw = () => {
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
@@ -195,6 +185,8 @@ const CanvasDrawingModule = (props) => {
 		setMenuOpen(!menuOpen);
 	}
 
+	const getCanvas = () => document.getElementById('canvas');
+
 	useEffect(() => {
 		if (drawStarted) {
 			getCtx().strokeStyle = color;
@@ -215,7 +207,14 @@ const CanvasDrawingModule = (props) => {
 			<div className="canvas-drawing-module__header">
 				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>Menu</button>
 				<h2>{activeDrawing.name}</h2>
-				<DrawingMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} activeDrawing={activeDrawing} setActiveDrawing={setActiveDrawing}/>
+				<DrawingMenu
+					canvas={getCanvas()}
+					menuOpen={menuOpen}
+					setMenuOpen={setMenuOpen}
+					activeDrawing={activeDrawing}
+					setActiveDrawing={setActiveDrawing}
+					setSavingState={setSavingState}
+				/>
 			</div>
 			<canvas id="canvas"/>
 			<button className="canvas-drawing-module__clear-btn" type="button" title="clear drawing" onClick={() => erase()}>

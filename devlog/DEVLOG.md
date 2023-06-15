@@ -69,6 +69,20 @@ the DOM is structured poorly here but I need to get this done/move on
 
 quick break
 
+4:29 PM
+
+so funny this piece of crap chromebook stuff closes on its own
+
+it's a cool body design but yeah, underpowered
+
+I was never really a big fan of fold-over type laptops because of the exposed keyboard but at the same time... I had the Surface Book and it was odd to detach too so idk.
+
+But I decided I'd stick to this thing since I bought it and I like the body design plus the EMR pen is nice
+
+I was thinking maybe the variable not working is related to react re-render but idk
+
+moving on, had a design in mind too for an ideal notebook (app)
+
 
 
 ---

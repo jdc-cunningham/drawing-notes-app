@@ -37,15 +37,31 @@
 
 .DrawingMenu__search-results {
   position: absolute;
-  top: 50px;
-  left: 0;
-  width: 100%;
-  height: auto;
+  top: 90px;
+  left: 0.5rem;
+  width: calc(100% - 1rem);
+  max-height: 118px;
+  overflow-y: auto;
   display: none;
   background-color: white;
+  border: 1px solid #282828;
 
   &.open {
     display: block;
+  }
+}
+
+.DrawingMenu__search-result {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ccc;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid #ccc;
   }
 }
 
