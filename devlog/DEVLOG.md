@@ -198,3 +198,9 @@ it was the addition of a body wrapper
 ohh... I just realized the canvas extends below the header that's why
 
 I'll fix that tomorrow
+
+10:48 PM
+
+oh no I know what it is, the clientOffset selector is using parent and putting body on it... yeah moves it down
+
+something like that
