@@ -14,3 +14,7 @@ Based on this [demo code](https://stackoverflow.com/questions/2368784/draw-on-ht
 ### Pressure
 
 Uses [pressure.js](https://github.com/stuyam/pressure) to detect how hard you push down/changes stroke size
+
+### Great artiste
+
+<img src="./cat.JPG"/>
