@@ -65,6 +65,10 @@ I was a dumbass for leaving the good job that I had without a plan
 
 the DOM is structured poorly here but I need to get this done/move on
 
+3:58 PM
+
+quick break
+
 
 
 ---
