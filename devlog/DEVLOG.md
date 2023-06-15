@@ -192,3 +192,9 @@ dang it... have to go backwards
 man... I almost lost all that progress dumb
 
 it was the addition of a body wrapper
+
+10:44 PM
+
+ohh... I just realized the canvas extends below the header that's why
+
+I'll fix that tomorrow

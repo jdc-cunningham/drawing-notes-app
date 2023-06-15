@@ -220,9 +220,7 @@ const CanvasDrawingModule = (props) => {
 			<div className="canvas-drawing-module__header">
 				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>New</button>
 				<h2>{activeDrawing.name}</h2>
-				<div className={`canvas-drawing-module__header-menu ${menuOpen ? 'open' : ''}`}>
-
-				</div>
+				<div className={`canvas-drawing-module__header-menu ${menuOpen ? 'open' : ''}`}></div>
 			</div>
 			<canvas id="canvas"/>
 			<button className="canvas-drawing-module__clear-btn" type="button" title="clear drawing" onClick={() => erase()}>
