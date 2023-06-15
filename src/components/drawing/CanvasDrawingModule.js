@@ -143,11 +143,6 @@ const CanvasDrawingModule = (props) => {
 		}
 	}
 
-	const save = () => {
-		var dataURL = canvas.toDataURL();
-		console.log(dataURL);
-	}
-
 	const findxy = (res, e) => {
 		if (res === 'down') {
 			prevX = currX;

@@ -58,7 +58,6 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
     id: drawingId
   }).then((res) => {
     if (res.status === 200) {
-      console.log(res);
       if (res.data.length) {
         // https://stackoverflow.com/a/4409745
         let image = new Image();
@@ -67,8 +66,6 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
           canvas.getContext("2d").drawImage(image, 0, 0);
         };
 
-        console.log(res.data[0].drawing);
-    
         image.src = res.data[0].drawing;
         closeMenu(setMenuOpen, setSearchTerm, setTags);
       }
