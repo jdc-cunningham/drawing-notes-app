@@ -11,7 +11,7 @@ const save = (searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTer
     alert('Need a name');
     return;
   }
-  
+
   setSavingState('saving');
 
   axios.post(apiSavePath, {
@@ -31,6 +31,8 @@ const save = (searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTer
 }
 
 const search = (apiSearchPath, searchTerm, tags, setSearchResults) => {
+  setSearchResults([]);
+
   axios.post(apiSearchPath, {
     name: searchTerm,
     topics: tags
@@ -64,6 +66,8 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
         image.onload = function() {
           canvas.getContext("2d").drawImage(image, 0, 0);
         };
+
+        console.log(res.data[0].drawing);
     
         image.src = res.data[0].drawing;
         closeMenu(setMenuOpen, setSearchTerm, setTags);
@@ -98,7 +102,7 @@ const DrawingMenu = (props) => {
         }, 500);
       }
     }
-  }, [searchTerm]);
+  }, [searchTerm, tags]);
 
   return (
     <div className={`DrawingMenu ${menuOpen ? 'open' : ''}`}>

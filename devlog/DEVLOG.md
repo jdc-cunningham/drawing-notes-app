@@ -83,7 +83,29 @@ I was thinking maybe the variable not working is related to react re-render but 
 
 moving on, had a design in mind too for an ideal notebook (app)
 
+5:12 PM
 
+ahh man I don't have a delete... don't really need it
+
+5:20 PM
+
+distracted, I think this is usable, enough for me to start using/integrate into something else
+
+5:25 PM
+
+oh no 413..., I had this problem before, gotta figure out where to set it on Apache
+
+5:31 PM
+
+alright fixed
+
+5:37 PM
+
+having trouble loading the image...
+
+5:42 PM
+
+I think I fixed it but need to try a larger one
 
 ---
 
