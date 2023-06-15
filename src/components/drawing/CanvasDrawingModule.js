@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react';
 import './CanvasDrawingModule.scss';
 import Pressure from 'pressure';
 import RedX from '../../assets/icons/uxwing_close-icon.svg';
+import DrawingMenu from './components/drawing-menu/DrawingMenu';
 
 const CanvasDrawingModule = (props) => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [activeDrawing, setActiveDrawing] = useState({
-		name: 'New drawing',
+		name: 'Drawing title',
 		id: 0,
 		topics: ''
 	});
@@ -84,6 +85,15 @@ const CanvasDrawingModule = (props) => {
 
 	const getCtx = () => {
 		return document.getElementById('canvas').getContext("2d");
+	}
+
+	const setCanvasSize = () => {
+		const container = document.querySelector('.App');
+		const header = document.querySelector('.canvas-drawing-module__header');
+
+		canvas = document.getElementById('canvas');
+		canvas.width = container.clientWidth - 10; // scrollbar
+		canvas.height = container.clientHeight - header.offsetHeight - 10;
 	}
 
 	const init = () => {
@@ -194,14 +204,18 @@ const CanvasDrawingModule = (props) => {
 
 	useEffect(() => {
 		init();
+
+		window.addEventListener('resize', function(event) {
+			setCanvasSize();
+		}, true);
 	}, [])
 
 	return (
 		<div className="canvas-drawing-module" id="module--canvas-drawing">
 			<div className="canvas-drawing-module__header">
-				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>Save</button>
+				<button className="canvas-drawing-module__header-toggle-menu-btn" type="button" onClick={() => toggleMenu()}>Menu</button>
 				<h2>{activeDrawing.name}</h2>
-				<div className={`canvas-drawing-module__header-menu ${menuOpen ? 'open' : ''}`}></div>
+				<DrawingMenu menuOpen={menuOpen} activeDrawing={activeDrawing} setActiveDrawing={setActiveDrawing}/>
 			</div>
 			<canvas id="canvas"/>
 			<button className="canvas-drawing-module__clear-btn" type="button" title="clear drawing" onClick={() => erase()}>

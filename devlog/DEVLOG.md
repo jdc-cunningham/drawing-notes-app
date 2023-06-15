@@ -1,7 +1,7 @@
 Features
 
 Base
-- [ ] colors
+- [x] colors (06/15/2023)
 - [ ] save
 
 Advanced
@@ -38,6 +38,36 @@ hmm... having a lot of weird broken variables where some are working, some are a
 3:02 PM
 
 oof man that's nasty but got it to work
+
+3:09 PM
+
+ugh... gotta build this drop down interface for search... smart move is to move it outside of canvas
+
+I will, cleaner, it is a component after all... ayeee
+
+3:17 PM
+
+ooh had a good idea, have a saving status indicator
+
+I just want to comment on the side that I am super f'd financially lol
+
+Did an interview, did great but I was also like "too advanced" in that area... I would still take the job if offered but yeah... also I probably gave off that vibe of "let's change all the existing practices" guy
+
+Anyway yeah I'm not doing hot right now, job interviews take a while and I've sold most of my things
+
+Actually wondering now if I will be able to pay rent next month lol... considering it used to be my rent was like 10% of my monthly income
+
+Anyway... yeah gotta free myself
+
+I was a dumbass for leaving the good job that I had without a plan
+
+3:27 PM
+
+the DOM is structured poorly here but I need to get this done/move on
+
+
+
+---
 
 06/14/2023
 

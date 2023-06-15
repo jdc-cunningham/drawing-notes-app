@@ -17,22 +17,16 @@
   background-color: #505050;
   padding: 0.5rem;
   width: 100%;
+
+  h2 {
+    font-size: 1.5rem;
+    color: white;
+  }
 }
 
 .canvas-drawing-module__header-toggle-menu-btn {
   font-size: 1.25rem;
   cursor: pointer;
-}
-
-.canvas-drawing-module__header-menu {
-  display: none;
-
-  &.open {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
 }
 
 .canvas-drawing-module__clear-btn {
@@ -105,7 +99,7 @@
 .canvas-drawing-module__colors-container {
   display: flex;
   align-items: flex-start;
-  justify-self: flex-start;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
 }
