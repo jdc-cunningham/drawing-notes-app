@@ -53,7 +53,7 @@ const closeMenu = (setMenuOpen, setSearchTerm, setTags) => {
   setTags('');
 }
 
-const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearchTerm, setTags) => {
+const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearchTerm, setTags, erase) => {
   axios.post(apiGetDrawingPath, {
     id: drawingId
   }).then((res) => {
