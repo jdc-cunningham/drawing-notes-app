@@ -6,7 +6,7 @@ import axios from 'axios';
 var searchTimeout = null;
 
 // yuck, but menu below rerenders a lot
-const save = (searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTerm, tags, setTags, canvas) => {
+const save = (searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTerm, tags, setTags, canvas, setTriggerSave) => {
   if (!searchTerm.length) {
     alert('Need a name');
     return;
@@ -22,8 +22,7 @@ const save = (searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTer
     if (res.status === 200) {
       setSavingState('saved');
       setMenuOpen(false);
-      setSearchTerm(''); // bad
-      setTags('');
+      setTriggerSave(false);
     } else {
       alert('Failed to save');
     }
@@ -47,10 +46,9 @@ const search = (apiSearchPath, searchTerm, tags, setSearchResults) => {
   });
 }
 
+// this UI state is used for background saving, bad for clearing/blank state
 const closeMenu = (setMenuOpen, setSearchTerm, setTags) => {
   setMenuOpen(false);
-  setSearchTerm(''); // bad
-  setTags('');
 }
 
 const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearchTerm, setTags, erase) => {
@@ -78,7 +76,7 @@ const loadDrawing = (apiGetDrawingPath, drawingId, canvas, setMenuOpen, setSearc
 }
 
 const DrawingMenu = (props) => {
-  const { menuOpen, setMenuOpen, drawing, setActiveDrawing, canvas, setSavingState, erase } = props;
+  const { menuOpen, setMenuOpen, drawing, setActiveDrawing, canvas, setSavingState, erase, triggerSave, setTriggerSave } = props;
 
   const baseApi = 'http://192.168.1.144:5003';
   const apiSavePath = `${baseApi}/save-drawing`;
@@ -103,6 +101,12 @@ const DrawingMenu = (props) => {
     }
   }, [searchTerm, tags]);
 
+  useEffect(() => {
+    if (triggerSave && searchTerm.length) {
+      save(searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTerm, tags, setTags, canvas, setTriggerSave);
+    }
+  });
+
   return (
     <div className={`DrawingMenu ${menuOpen ? 'open' : ''}`}>
       <h2>Save or load drawing</h2>
@@ -112,7 +116,7 @@ const DrawingMenu = (props) => {
         <button type="button" onClick={() => closeMenu(setMenuOpen, setSearchTerm, setTags)}>Cancel</button>
         <button
           type="button"
-          onClick={() => save(searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTerm, tags, setTags, canvas)}
+          onClick={() => save(searchTerm, apiSavePath, setSavingState, setMenuOpen, setSearchTerm, tags, setTags, canvas, setTriggerSave)}
         >Save</button>
       </div>
       <div className={`DrawingMenu__search-results ${searchResults.length ? 'open' : ''}`}>

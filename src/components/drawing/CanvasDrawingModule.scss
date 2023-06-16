@@ -90,6 +90,8 @@
   left: calc(3rem - 0.25rem);
   width: auto;
   height: auto;
+  background-color: white;
+  z-index: 1;
 
   &.open {
     display: flex;
@@ -102,6 +104,7 @@
   justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
+  z-index: 1;
 }
 
 .canvas-drawing-module__color {
@@ -110,6 +113,7 @@
   margin: 0.25rem;
   border: 1px solid #282828;
   cursor: pointer;
+  z-index: 2;
 
   &.black {
     background-color: black;
@@ -134,6 +138,14 @@
   &.gray {
     background-color: gray;
   }
+}
+
+.DrawingMenu__saving-state {
+  position: absolute;
+  top: calc(58px + 0.25rem);
+  left: calc(5rem + 0.25rem);
+  color: #505050;
+  pointer-events: none;
 }
 
 #canvas {
