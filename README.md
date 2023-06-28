@@ -22,3 +22,7 @@ Uses [pressure.js](https://github.com/stuyam/pressure) to detect how hard you pu
 ### Issues
 
 This code is problematic, specifically the variable/state handling.
+
+### Most current version
+
+Improvements added [here](https://github.com/jdc-cunningham/cross-platform-app/tree/master/desktop)
